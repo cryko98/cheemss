@@ -85,6 +85,14 @@ const App: React.FC = () => {
 
   const generateBonkPfp = async () => {
     if (!uploadFile) return;
+    
+    // Check for API Key
+    if (!process.env.API_KEY) {
+      alert("Error: API Key is missing. Please make sure you have added 'API_KEY' to your Vercel Environment Variables and redeployed.");
+      console.error("API_KEY is not defined in process.env");
+      return;
+    }
+
     setIsGenerating(true);
 
     try {
@@ -126,7 +134,7 @@ const App: React.FC = () => {
       }
     } catch (error) {
       console.error("Error generating image:", error);
-      alert("Something went wrong with the bonk machine. Try again!");
+      alert("Something went wrong with the bonk machine. Check console for details.");
     } finally {
       setIsGenerating(false);
     }
